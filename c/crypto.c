@@ -1,7 +1,10 @@
 #include <stddef.h>
 #include <stdint.h>
+
 #include "curve25519-donna.h"
 #include "aes.h"
+
+#include "crypto.h"
 
 // AES
 

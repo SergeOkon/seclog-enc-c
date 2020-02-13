@@ -3,8 +3,7 @@ LD=ld
 CFLAGS=-O2 -std=c99
 LDLIBS=-lm
 
-
-all: build/util
+all: build/crypto test
 
 build:
 	mkdir build
@@ -18,9 +17,23 @@ build/aes.o: build
 build/crypto.o: build
 	${CC} ${CFLAGS} -o build/crypto.o -c c/crypto.c 
 
-build/util: build/aes.o build/curve25519-donna.o build/crypto.o
+build/util.o: build
 	${CC} ${CFLAGS} -o build/util.o -c c/util.c 
-	${LD} ${LDLIBS} -o build/crypto build/curve25519-donna.o build/aes.o build/util.o build/crypto.o
+
+build/crypto: build/aes.o build/curve25519-donna.o build/crypto.o build/util.o
+	${CC} ${CFLAGS} -o build/main.o -c c/main.c 
+	${LD} ${LDLIBS} -o build/crypto build/curve25519-donna.o build/aes.o build/util.o build/crypto.o build/main.o
+
+build/test: build/aes.o build/curve25519-donna.o build/crypto.o build/util.o
+	${CC} ${CFLAGS} -o build/test.o -c test/test.c 
+	${LD} ${LDLIBS} -o build/test build/curve25519-donna.o build/aes.o build/util.o build/crypto.o build/test.o
+
+.PHONY: test
+test: build/test
+	#Running tests, check diff if errors occur...
+	./build/test > ./test/results.txt
+	diff ./test/expected.txt ./test/results.txt
+	#Tests passed.
 
 clean:
-	rm -fr build
+	rm -fr build test/results.txt
