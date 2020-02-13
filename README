@@ -1,0 +1,13 @@
+# SecLog - Enryption Lib and Util
+
+Uses code from these projects:
+
+Tiny AES C - https://github.com/kokke/tiny-AES-c
+Curve 25519 Donna - https://github.com/agl/curve25519-donna
+
+
+
+Provides a wrapper around the above, and a command line utility to test and utilize them.
+
+
+MIT license

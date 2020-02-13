@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stdint.h": "c",
+			"string": "c",
+			"iosfwd": "c",
+			"aes.h": "c",
+			"stdio.h": "c",
+			"stddef.h": "c"
+		}
+	}
+}
